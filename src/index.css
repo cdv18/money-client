@@ -1,0 +1,166 @@
+:root {
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --bg-light: #f5f5f7;
+  --surface-light: #ffffff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+}
+
+.flex {
+  display: flex;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.bg-gray-100 {
+  background-color: #f7f7f7;
+}
+
+.bg-gray-800 {
+  background-color: #2d3748;
+}
+
+.text-white {
+  color: #ffffff; /* Màu trắng sáng */
+}
+
+.w-64 {
+  width: 16rem;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
+
+.ml-16 {
+  margin-left: 4rem;
+}
+
+.ml-64 {
+  margin-left: 16rem;
+}
+
+.hover\:bg-gray-700:hover {
+  background-color: #4a5568;
+}
+
+.bg-blue-900 {
+  background-color: #1e3a8a;
+}
+
+.text-gray-200 {
+  color: #e5e7eb;
+}
+
+.hover\:bg-blue-700:hover {
+  background-color: #1d4ed8;
+}
+
+.w-screen {
+  width: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.bg-blue-800 {
+  background-color: #2c5282; /* Xanh đậm hơn */
+}
+
+.hover\:bg-blue-600:hover {
+  background-color: #3182ce; /* Xanh sáng hơn khi hover */
+}
+
+/* Đảm bảo các lớp CSS cần thiết được định nghĩa */
+.text-gray-600 {
+  color: #4a5568; /* Màu xám */
+}
+
+.text-xl {
+  font-size: 1.25rem; /* Kích thước chữ lớn */
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+/* Thêm các utility classes mới */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.min-w-0 {
+  min-width: 0;
+}
+
+.max-w-full {
+  max-width: 100%;
+}
+
+/* iOS-like styles */
+.ios-card {
+  background: var(--surface-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
+}
+
+.ios-button {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  background: #007AFF;
+  color: white;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.ios-button:active {
+  transform: scale(0.98);
+}
+
+.ios-input {
+  background: var(--bg-light);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .w-64 {
+    width: 14rem;
+  }
+  
+  .w-16 {
+    width: 3.5rem;
+  }
+}
