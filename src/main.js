@@ -10,10 +10,13 @@ import { Chart as ChartJS, registerables } from 'chart.js';
 ChartJS.register(...registerables);
 
 import axios from './plugins/axios';
+import VCalendar from 'v-calendar';
+import 'v-calendar/style.css';
 
 const app = createApp(App);
 app.use(createPinia());
 app.use(router);
+app.use(VCalendar, {});
 
 // Thêm axios vào Vue global properties
 app.config.globalProperties.$axios = axios;

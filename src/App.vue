@@ -1,15 +1,20 @@
 <template>
-  <MainLayout />
+  <router-view v-slot="{ Component }">
+    <component 
+      :is="Component" 
+      v-if="route.meta.requiresAuth === false"
+    />
+    <MainLayout v-else>
+      <component :is="Component" />
+    </MainLayout>
+  </router-view>
 </template>
 
-<script>
+<script setup>
+import { useRoute } from 'vue-router';
 import MainLayout from './components/MainLayout.vue';
 
-export default {
-  components: {
-    MainLayout
-  }
-};
+const route = useRoute();
 </script>
 
 <style>

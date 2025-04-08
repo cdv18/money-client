@@ -1,24 +1,26 @@
 <template>
-  <Transition name="fade">
-    <div v-if="modelValue" class="popup-overlay" @click="handleOverlayClick">
-      <div class="popup-container" :class="size" @click.stop>
-        <div class="popup-header">
-          <h3 class="popup-title">{{ title }}</h3>
-          <button v-if="!hideCloseButton" class="close-button" @click="close">
-            <span class="material-icons">close</span>
-          </button>
-        </div>
-        
-        <div class="popup-content">
-          <slot></slot>
-        </div>
-        
-        <div v-if="$slots.footer" class="popup-footer">
-          <slot name="footer"></slot>
+  <Teleport to="body">
+    <Transition name="fade">
+      <div v-if="modelValue" class="popup-overlay" @click="handleOverlayClick">
+        <div class="popup-container" :class="size" @click.stop>
+          <div class="popup-header">
+            <h3 class="popup-title">{{ title }}</h3>
+            <button v-if="!hideCloseButton" class="close-button" @click="close">
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+          
+          <div class="popup-content">
+            <slot></slot>
+          </div>
+          
+          <div v-if="$slots.footer" class="popup-footer">
+            <slot name="footer"></slot>
+          </div>
         </div>
       </div>
-    </div>
-  </Transition>
+    </Transition>
+  </Teleport>
 </template>
 
 <script>
@@ -79,7 +81,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .popup-container {
@@ -91,10 +93,12 @@ export default {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 101;
 }
 
 .popup-container.small {
-  max-width: 400px;
+  max-width: 360px; /* Giảm kích thước xuống */
 }
 
 .popup-container.medium {
@@ -106,17 +110,19 @@ export default {
 }
 
 .popup-header {
-  padding: 16px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 16px 20px; /* Giảm padding */
+  border-bottom: none; /* Bỏ border */
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: var(--surface-light);
 }
 
 .popup-title {
   margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1c1c1e;
 }
 
 .close-button {
@@ -136,17 +142,18 @@ export default {
 }
 
 .popup-content {
-  padding: 16px;
+  padding: 12px 20px; /* Giảm padding */
   overflow-y: auto;
   flex: 1;
 }
 
 .popup-footer {
-  padding: 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 12px 20px; /* Giảm padding */
+  border-top: none; /* Bỏ border */
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 12px;
+  background: var(--surface-light);
 }
 
 /* Animations */

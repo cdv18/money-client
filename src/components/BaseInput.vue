@@ -9,6 +9,8 @@
       v-model="inputValue"
       class="input"
       @input="$emit('update:modelValue', inputValue)"
+      @focus="$emit('focus', $event)"
+      ref="input"
     />
     
     <!-- Icon xóa -->
@@ -48,6 +50,9 @@ export default {
     clearInput() {
       this.inputValue = ''; // Xóa nội dung input
       this.$emit('update:modelValue', ''); // Cập nhật giá trị binding
+    },
+    focus() {
+      this.$refs.input.focus();
     }
   },
   watch: {
@@ -62,21 +67,37 @@ export default {
 .ios-input-group {
   background: var(--bg-light);
   border-radius: var(--radius-sm);
-  padding: 8px 12px;
+  padding: 2px 6px; /* Giảm padding ngoài cùng */
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px; /* Giảm khoảng cách giữa các elements */
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.ios-input-group:hover,
+.ios-input-group:focus-within {
+  border-color: #007AFF;
+  background: white;
 }
 
 input {
   border: none;
   background: transparent;
-  padding: 8px;
+  padding: 4px;
+  height: 28px; /* Giảm chiều cao xuống */
   width: 100%;
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 1;
   
   &:focus {
     outline: none;
   }
+}
+
+/* Icon styles */
+.material-icons {
+  font-size: 16px; /* Giảm kích thước icon */
+  color: rgba(0, 0, 0, 0.5);
 }
 </style>

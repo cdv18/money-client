@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mdiViewDashboard, mdiCashPlus, mdiCashMinus, mdiShape, mdiChartBar, mdiHistory, mdiAccount } from '@mdi/js';
+import { mdiViewDashboard, mdiCashPlus, mdiCashMinus, mdiShape, mdiChartBar, mdiHistory, mdiAccount, mdiBankOutline } from '@mdi/js';
 
 export default {
   props: {
@@ -40,8 +40,10 @@ export default {
       mdiChartBar,
       mdiHistory,
       mdiAccount,
+      mdiBankOutline,
       menuItems: [
         { path: '/', icon: mdiViewDashboard, title: 'Dashboard' },
+        { path: '/accounts', icon: mdiBankOutline, title: 'Tài Khoản' },
         { path: '/income', icon: mdiCashPlus, title: 'Ghi Thu' },
         { path: '/expense', icon: mdiCashMinus, title: 'Ghi Chi' },
         { path: '/categories', icon: mdiShape, title: 'Danh Mục' },

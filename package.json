@@ -8,12 +8,14 @@
   },
   "dependencies": {
     "@mdi/js": "^7.4.47",
+    "@popperjs/core": "^2.11.8",
+    "axios": "^1.6.7",
     "chart.js": "^4.4.8",
     "pinia": "^2.1.4",
+    "v-calendar": "^3.1.2",
     "vue": "^3.3.4",
     "vue-chartjs": "^5.3.2",
-    "vue-router": "^4.2.5",
-    "axios": "^1.6.7"
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
