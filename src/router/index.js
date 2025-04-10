@@ -1,7 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import MainLayout from '../components/MainLayout.vue';
+import IntroScene from '../components/IntroScene.vue';
 
 const routes = [
+  {
+    path: '/intro',
+    component: IntroScene,
+    meta: { requiresAuth: false }
+  },
   {
     path: '/login',
     component: () => import('../views/Login.vue'),
