@@ -171,12 +171,12 @@ const quickAdd = (type) => {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  min-width: 240px; /* Tăng từ 200px lên 240px */
+  min-width: 240px;
   background: white;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 9999; /* Tăng z-index lên cao hơn */
   padding: 8px 0;
 }
 

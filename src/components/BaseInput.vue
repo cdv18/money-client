@@ -67,10 +67,10 @@ export default {
 .ios-input-group {
   background: var(--bg-light);
   border-radius: var(--radius-sm);
-  padding: 2px 6px; /* Giảm padding ngoài cùng */
+  padding: 2px 12px; /* Thay đổi padding để icon gần input hơn */
   display: flex;
   align-items: center;
-  gap: 4px; /* Giảm khoảng cách giữa các elements */
+  gap: 8px; /* Giảm khoảng cách giữa icon và input */
   border: 1px solid transparent;
   transition: all 0.2s ease;
 }
@@ -97,7 +97,8 @@ input {
 
 /* Icon styles */
 .material-icons {
-  font-size: 16px; /* Giảm kích thước icon */
-  color: rgba(0, 0, 0, 0.5);
+  font-size: 18px; /* Giảm kích thước icon */
+  color: #666;
+  flex-shrink: 0; /* Ngăn icon bị co lại */
 }
 </style>
