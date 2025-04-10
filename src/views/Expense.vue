@@ -206,6 +206,14 @@ const resetForm = () => {
   width: 100%;
 }
 
+.view-header {
+  padding-top: 0; /* Remove or reduce padding */
+}
+
+h2 {
+  padding: 0; /* Remove padding */
+}
+
 .form-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -338,5 +346,10 @@ const resetForm = () => {
   .form-container {
     grid-template-columns: 1fr;
   }
+}
+
+.view-header {
+  margin: 0; /* Remove margin */
+  align-items: center; /* Center align vertically */
 }
 </style>

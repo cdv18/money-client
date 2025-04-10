@@ -2,7 +2,17 @@
   <div class="categories-view">
     <div class="view-header">
       <div class="left-section">
-        <h2>Danh Mục</h2>
+        <div class="header-title">
+          <h2>Danh Mục</h2>
+          <BaseButton 
+            variant="primary" 
+            size="small" 
+            iconBefore="add"
+            @click="openAddDialog"
+          >
+            Thêm danh mục
+          </BaseButton>
+        </div>
         <div class="tab-header">
           <button 
             v-for="tab in tabs" 
@@ -14,14 +24,6 @@
           </button>
         </div>
       </div>
-      <BaseButton 
-        variant="primary" 
-        size="small" 
-        iconBefore="add"
-        @click="openAddDialog"
-      >
-        Thêm danh mục
-      </BaseButton>
     </div>
 
     <div class="content-container">
@@ -201,10 +203,8 @@ const editCategory = (category) => {
 
 <style scoped>
 .view-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
+  margin: 0;
+  margin-bottom: 1rem;
 }
 
 .left-section {
@@ -213,11 +213,27 @@ const editCategory = (category) => {
   gap: 1rem;
 }
 
+h2 {
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
 .tab-header {
   display: flex;
   gap: 0.5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 0.5rem;
+  margin-left: 0; /* Reset margin */
+}
+
+/* Move the h2 and button to the same line */
+.header-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .tab-button {
@@ -386,5 +402,9 @@ const editCategory = (category) => {
 .preview-icon .placeholder {
   color: #666;
   font-size: 14px;
+}
+
+h2 {
+  padding: 0; /* Remove padding */
 }
 </style>

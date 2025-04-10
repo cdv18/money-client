@@ -346,4 +346,14 @@ const changePassword = () => {
 .tab-content {
   padding: 2rem; /* Tăng padding */
 }
+
+.view-header {
+  padding-top: 0; /* Remove or reduce padding */
+  margin: 0; /* Remove margin */
+  align-items: center; /* Center align vertically */
+}
+
+h2 {
+  padding: 0; /* Remove padding */
+}
 </style>

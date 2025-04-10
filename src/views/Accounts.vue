@@ -224,8 +224,9 @@ const deleteAccount = async (account) => {
 .view-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 1.5rem;
+  padding-top: 0; /* Remove or reduce padding */
 }
 
 .left-section {
@@ -370,5 +371,9 @@ const deleteAccount = async (account) => {
 .account-note:focus {
   border-color: #007AFF;
   background: white;
+}
+
+h2 {
+  padding: 0; /* Remove padding */
 }
 </style>

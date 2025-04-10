@@ -373,6 +373,9 @@ const clearDateRange = () => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+  padding-top: 0; /* Remove or reduce padding */
+  margin: 0; /* Remove margin */
+  align-items: center; /* Center align vertically */
 }
 
 .filter-container {
@@ -478,5 +481,9 @@ const clearDateRange = () => {
 :deep(.vc-wrapper) {
   width: 100%;
   min-width: auto;
+}
+
+h2 {
+  padding: 0; /* Remove padding */
 }
 </style>
