@@ -10,10 +10,12 @@
     </div>
     <ul class="menu">
       <li v-for="(item, index) in menuItems" :key="index" class="menu-item">
-        <router-link :to="item.path" class="menu-link" :class="{ 'collapsed': isCollapsed }">
-          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path :d="item.icon" />
-          </svg>
+        <router-link :to="item.path" class="menu-link" :class="{ 'collapsed': isCollapsed }" v-slot="{ isActive }">
+          <MenuIcon3D
+            :icon="item.iconType"
+            :color="item.color"
+            :isActive="isActive"
+          />
           <span v-if="!isCollapsed">{{ item.title }}</span>
         </router-link>
       </li>
@@ -21,39 +23,66 @@
   </div>
 </template>
 
-<script>
-import { mdiViewDashboard, mdiCashPlus, mdiCashMinus, mdiShape, mdiChartBar, mdiHistory, mdiAccount, mdiBankOutline } from '@mdi/js';
+<script setup>
+import MenuIcon3D from './MenuIcon3D.vue';
 
-export default {
-  props: {
-    isCollapsed: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      mdiViewDashboard,
-      mdiCashPlus,
-      mdiCashMinus,
-      mdiShape,
-      mdiChartBar,
-      mdiHistory,
-      mdiAccount,
-      mdiBankOutline,
-      menuItems: [
-        { path: '/', icon: mdiViewDashboard, title: 'Dashboard' },
-        { path: '/accounts', icon: mdiBankOutline, title: 'Tài Khoản' },
-        { path: '/income', icon: mdiCashPlus, title: 'Ghi Thu' },
-        { path: '/expense', icon: mdiCashMinus, title: 'Ghi Chi' },
-        { path: '/categories', icon: mdiShape, title: 'Danh Mục' },
-        { path: '/statistics', icon: mdiChartBar, title: 'Thống Kê' },
-        { path: '/history', icon: mdiHistory, title: 'Lịch Sử' },
-        { path: '/user', icon: mdiAccount, title: 'Thông Tin Người Dùng' }
-      ]
-    };
+const props = defineProps({
+  isCollapsed: {
+    type: Boolean,
+    default: false
   }
-};
+});
+
+const menuItems = [
+  { 
+    path: '/', 
+    iconType: 'dashboard', 
+    title: 'Dashboard',
+    color: '#5856d6'
+  },
+  { 
+    path: '/accounts', 
+    iconType: 'accounts', 
+    title: 'Tài Khoản',
+    color: '#ff9500'
+  },
+  { 
+    path: '/income', 
+    iconType: 'income', 
+    title: 'Ghi Thu',
+    color: '#4cd964'
+  },
+  { 
+    path: '/expense', 
+    iconType: 'expense', 
+    title: 'Ghi Chi',
+    color: '#ff3b30'
+  },
+  { 
+    path: '/categories', 
+    iconType: 'categories', 
+    title: 'Danh Mục',
+    color: '#ff9500'
+  },
+  { 
+    path: '/statistics', 
+    iconType: 'statistics', 
+    title: 'Thống Kê',
+    color: '#5ac8fa'
+  },
+  { 
+    path: '/history', 
+    iconType: 'history', 
+    title: 'Lịch Sử',
+    color: '#007aff'
+  },
+  { 
+    path: '/user', 
+    iconType: 'user', 
+    title: 'Thông Tin Người Dùng',
+    color: '#af52de'
+  }
+];
 </script>
 
 <style lang="scss" scoped>
@@ -74,8 +103,8 @@ export default {
   }
 
   .menu {
-    list-style: none; // Loại bỏ dấu chấm đầu dòng
-    padding: 0.5rem; // Loại bỏ padding mặc định
+    list-style: none;
+    padding: 0.5rem;
 
     .menu-item {
       display: flex;
@@ -88,8 +117,8 @@ export default {
         background-color: rgba(0, 0, 0, 0.05);
       }
 
-      a {
-        color: rgba(0, 0, 0, 0.75) !important; // Đảm bảo màu đen được ưu tiên
+      .menu-link {
+        color: rgba(0, 0, 0, 0.75) !important;
         text-decoration: none;
         display: flex;
         align-items: center;
@@ -97,23 +126,15 @@ export default {
         padding: 0.75rem;
         border-radius: var(--radius-sm);
         width: 100%;
-        justify-content: center; /* Thêm justify-content */
         transition: all 0.2s ease;
 
-        /* Thêm style cho trạng thái collapsed */
-        :deep(.collapsed) {
+        &.collapsed {
           justify-content: center;
           padding: 10px 0;
         }
 
         span:not(.material-icons) {
           flex: 1;
-        }
-
-        svg {
-          width: 24px;
-          height: 24px;
-          flex-shrink: 0; /* Ngăn svg bị co lại */
         }
 
         &:hover {
@@ -126,71 +147,6 @@ export default {
           color: rgba(0, 0, 0, 0.9) !important;
           font-weight: 500;
         }
-
-        svg {
-          width: 24px;
-          height: 24px;
-          color: inherit;
-        }
-
-        &.dashboard {
-          color: #5856d6;
-          &:hover { background-color: rgba(88, 86, 214, 0.1); }
-        }
-        
-        &.income {
-          color: #4cd964;
-          &:hover { background-color: rgba(76, 217, 100, 0.1); }
-        }
-        
-        &[href="/expense"] {
-          color: #ff3b30;
-          &:hover { background-color: rgba(255, 59, 48, 0.1); }
-        }
-        
-        &[href="/categories"] {
-          color: #ff9500;
-          &:hover { background-color: rgba(255, 149, 0, 0.1); }
-        }
-        
-        &[href="/statistics"] {
-          color: #5ac8fa;
-          &:hover { background-color: rgba(90, 200, 250, 0.1); }
-        }
-        
-        &[href="/history"] {
-          color: #007aff;
-          &:hover { background-color: rgba(0, 122, 255, 0.1); }
-        }
-        
-        &[href="/user"] {
-          color: #af52de;
-          &:hover { background-color: rgba(175, 82, 222, 0.1); }
-        }
-
-        &.router-link-active {
-          background-color: rgba(255, 255, 255, 0.1);
-          font-weight: 500;
-        }
-
-        svg {
-          transition: transform 0.2s ease;
-        }
-
-        &:hover svg {
-          transform: scale(1.1);
-        }
-      }
-
-      svg {
-        width: 24px;
-        height: 24px;
-        opacity: 0.75;
-        transition: opacity 0.2s ease;
-      }
-
-      &:hover svg {
-        opacity: 0.9;
       }
     }
   }
