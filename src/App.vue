@@ -8,11 +8,13 @@
       <component :is="Component" />
     </MainLayout>
   </router-view>
+  <ToastMessage />
 </template>
 
 <script setup>
 import { useRoute } from 'vue-router';
 import MainLayout from './components/MainLayout.vue';
+import ToastMessage from './components/ToastMessage.vue';
 
 const route = useRoute();
 </script>

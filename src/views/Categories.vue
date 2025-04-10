@@ -92,133 +92,114 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, computed } from 'vue';
 import BaseButton from '../components/BaseButton.vue';
 import BaseInput from '../components/BaseInput.vue';
 import BasePopup from '../components/BasePopup.vue';
 import IconPicker from '../components/IconPicker.vue';
 import BaseConfirm from '../components/BaseConfirm.vue';
+import { useToast } from '../composables/useToast';
 
-export default {
-  components: {
-    BaseButton,
-    BaseInput,
-    BasePopup,
-    IconPicker,
-    BaseConfirm
-  },
-  setup() {
-    const currentTab = ref('income');
-    const showPopup = ref(false);
-    const isEditing = ref(false);
-    const editingCategory = ref({
-      name: '',
-      icon: '',
-      color: '#000000',
-      type: 'income'
-    });
+const showPopup = ref(false);
+const isEditing = ref(false);
+const currentTab = ref('income');
+const editingCategory = ref({
+  name: '',
+  icon: '',
+  color: '#000000',
+  type: 'income'
+});
 
-    const tabs = [
-      { label: 'Danh mục thu', value: 'income' },
-      { label: 'Danh mục chi', value: 'expense' }
-    ];
+const toast = useToast();
 
-    const categories = ref([
-      { id: 1, name: 'Lương', icon: 'payments', color: '#4CAF50', type: 'income' },
-      { id: 2, name: 'Thưởng', icon: 'card_giftcard', color: '#2196F3', type: 'income' },
-      { id: 3, name: 'Ăn uống', icon: 'restaurant', color: '#FF5722', type: 'expense' },
-      { id: 4, name: 'Di chuyển', icon: 'directions_car', color: '#607D8B', type: 'expense' }
-    ]);
+const tabs = [
+  { label: 'Danh mục thu', value: 'income' },
+  { label: 'Danh mục chi', value: 'expense' }
+];
 
-    const filteredCategories = computed(() => {
-      return categories.value.filter(cat => cat.type === currentTab.value);
-    });
+const categories = ref([
+  { id: 1, name: 'Lương', icon: 'payments', color: '#4CAF50', type: 'income' },
+  { id: 2, name: 'Thưởng', icon: 'card_giftcard', color: '#2196F3', type: 'income' },
+  { id: 3, name: 'Ăn uống', icon: 'restaurant', color: '#FF5722', type: 'expense' },
+  { id: 4, name: 'Di chuyển', icon: 'directions_car', color: '#607D8B', type: 'expense' }
+]);
 
-    const openAddDialog = () => {
-      isEditing.value = false;
-      editingCategory.value = {
-        name: '',
-        icon: '',
-        color: '#000000',
-        type: currentTab.value
-      };
-      showPopup.value = true;
-    };
+const filteredCategories = computed(() => {
+  return categories.value.filter(cat => cat.type === currentTab.value);
+});
 
-    const iconPicker = ref(null);
+const openAddDialog = () => {
+  isEditing.value = false;
+  editingCategory.value = {
+    name: '',
+    icon: '',
+    color: '#000000',
+    type: currentTab.value
+  };
+  showPopup.value = true;
+};
 
-    const closePopup = () => {
-      showPopup.value = false;
-      editingCategory.value = {
-        name: '',
-        icon: '',
-        color: '#000000',
-        type: currentTab.value
-      };
-    };
+const iconPicker = ref(null);
 
-    const saveCategory = () => {
-      // Thêm validation
-      if (!editingCategory.value.name || !editingCategory.value.icon) {
-        alert('Vui lòng nhập đầy đủ thông tin');
-        return;
-      }
+const closePopup = () => {
+  showPopup.value = false;
+  editingCategory.value = {
+    name: '',
+    icon: '',
+    color: '#000000',
+    type: currentTab.value
+  };
+};
 
-      if (isEditing.value) {
-        // Logic sửa danh mục
-      } else {
-        // Logic thêm danh mục mới
-        categories.value.push({
-          id: Date.now(), // Tạm thời dùng timestamp làm id
-          ...editingCategory.value
-        });
-      }
-      closePopup();
-    };
-
-    const showConfirmDelete = ref(false);
-    const deletingCategory = ref(null);
-
-    const deleteCategory = (category) => {
-      deletingCategory.value = category;
-      showConfirmDelete.value = true;
-    };
-
-    const confirmDelete = () => {
-      if (deletingCategory.value) {
-        categories.value = categories.value.filter(
-          cat => cat.id !== deletingCategory.value.id
-        );
-        deletingCategory.value = null;
-      }
-    };
-
-    return {
-      currentTab,
-      tabs,
-      categories,
-      filteredCategories,
-      showPopup,
-      editingCategory,
-      openAddDialog,
-      closePopup,
-      saveCategory,
-      iconPicker,
-      showConfirmDelete,
-      deletingCategory,
-      deleteCategory,
-      confirmDelete
-    };
+const saveCategory = () => {
+  if (!editingCategory.value.name || !editingCategory.value.icon) {
+    toast.error('Vui lòng điền đầy đủ thông tin');
+    return;
   }
+
+  if (isEditing.value) {
+    const index = categories.value.findIndex(c => c.id === editingCategory.value.id);
+    if (index > -1) {
+      categories.value[index] = { ...editingCategory.value };
+      toast.success('Cập nhật danh mục thành công');
+    }
+  } else {
+    categories.value.push({
+      id: Date.now(),
+      ...editingCategory.value
+    });
+    toast.success('Thêm danh mục thành công');
+  }
+  closePopup();
+};
+
+const showConfirmDelete = ref(false);
+const deletingCategory = ref(null);
+
+const deleteCategory = (category) => {
+  deletingCategory.value = category;
+  showConfirmDelete.value = true;
+};
+
+const confirmDelete = () => {
+  if (deletingCategory.value) {
+    categories.value = categories.value.filter(
+      cat => cat.id !== deletingCategory.value.id
+    );
+    toast.success('Xóa danh mục thành công');
+    deletingCategory.value = null;
+  }
+};
+
+const editCategory = (category) => {
+  isEditing.value = true;
+  editingCategory.value = { ...category };
+  showPopup.value = true;
 };
 </script>
 
 <style scoped>
-.categories-view {
-  /* Loại bỏ padding */
-}
-
 .view-header {
   display: flex;
   justify-content: space-between;

@@ -32,6 +32,8 @@
         </BaseButton>
       </div>
 
+      <NotificationBell />
+
       <div class="avatar-container">
         <div class="avatar-wrapper" ref="avatarRef" @click="toggleMenu">
           <UserAvatar :size="32" />
@@ -63,6 +65,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import UserAvatar from './UserAvatar.vue';
 import BaseButton from './BaseButton.vue';
+import NotificationBell from './NotificationBell.vue';
 
 const router = useRouter();
 const showMenu = ref(false);

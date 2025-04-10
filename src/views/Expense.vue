@@ -110,6 +110,9 @@ import BaseInput from '../components/BaseInput.vue';
 import BaseButton from '../components/BaseButton.vue';
 import BaseCombobox from '../components/BaseCombobox.vue';
 import { DatePicker } from 'v-calendar';
+import { useToast } from '../composables/useToast';
+
+const toast = useToast();
 
 const form = ref({
   amount: '',
@@ -169,9 +172,32 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('vi-VN');
 };
 
-const handleSubmit = () => {
-  // TODO: Implement form submission
-  console.log('Form submitted:', form.value);
+const handleSubmit = async () => {
+  try {
+    // Validate form
+    if (!form.value.amount || !form.value.categoryId) {
+      toast.error('Vui lòng điền đầy đủ thông tin bắt buộc');
+      return;
+    }
+
+    // Add expense logic here
+    await addExpense(form.value);
+    
+    toast.success('Thêm khoản chi thành công');
+    resetForm();
+  } catch (error) {
+    toast.error('Có lỗi xảy ra khi thêm khoản chi');
+  }
+};
+
+const resetForm = () => {
+  form.value = {
+    amount: '',
+    categoryId: '',
+    accountId: '',
+    date: new Date(),
+    description: ''
+  };
 };
 </script>
 

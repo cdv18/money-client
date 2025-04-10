@@ -81,13 +81,19 @@
             Đăng ký
           </BaseButton>
         </div>
-
-        <div class="form-footer">
-          <p>Đã có tài khoản? 
-            <router-link to="/login">Đăng nhập ngay</router-link>
-          </p>
-        </div>
       </form>
+
+      <div class="form-footer">
+        <p>Đã có tài khoản? 
+          <router-link to="/login">Đăng nhập ngay</router-link>
+        </p>
+        <div class="intro-link">
+          <router-link to="/intro" class="btn-intro">
+            <span class="material-icons">arrow_back</span>
+            Quay lại trang giới thiệu
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -206,5 +212,30 @@ const handleRegister = async () => {
 
 .form-footer a:hover {
   text-decoration: underline;
+}
+
+.intro-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.btn-intro {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+
+.btn-intro:hover {
+  background: var(--bg-light);
+  color: #007AFF;
+}
+
+.btn-intro .material-icons {
+  font-size: 1.25rem;
 }
 </style>
