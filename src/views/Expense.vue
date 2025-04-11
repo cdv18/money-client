@@ -1,16 +1,12 @@
 <template>
   <div class="expense-view">
-    <div class="view-header">
-      <h2>Ghi Chi</h2>
-    </div>
-
     <div class="form-container">
       <form @submit.prevent="handleSubmit" class="expense-form">
         <div class="form-group">
           <label>Số tiền</label>
           <BaseInput 
             v-model="form.amount"
-            type="number"
+            :type="InputType.CURRENCY"
             placeholder="Nhập số tiền"
             iconBefore="payments"
           />
@@ -111,6 +107,7 @@ import BaseButton from '../components/BaseButton.vue';
 import BaseCombobox from '../components/BaseCombobox.vue';
 import { DatePicker } from 'v-calendar';
 import { useToast } from '../composables/useToast';
+import { InputType, formatCurrency } from '../enums/InputType';
 
 const toast = useToast();
 
@@ -160,13 +157,6 @@ const recentTransactions = ref([
     }
   }
 ]);
-
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND'
-  }).format(amount);
-};
 
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('vi-VN');
@@ -218,7 +208,7 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  margin-top: 1.5rem;
+  margin-top: 0; /* Bỏ margin-top vì đã có padding từ content-wrapper */
 }
 
 .expense-form {
@@ -240,12 +230,14 @@ h2 {
 }
 
 .form-actions {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .submit-button {
-  width: 100%;
-  height: 44px;
+  width: auto;
+  min-width: 120px;
+  height: 36px;
+  float: right;
 }
 
 .date-input {

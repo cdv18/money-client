@@ -53,7 +53,8 @@ export default {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 1rem;
+  padding: 1.5rem; /* Tăng padding từ 1rem lên 1.5rem */
+  padding-top: 1rem; /* Giữ khoảng cách trên nhỏ hơn để gần với TopNav */
   background-color: #f7f7f7;
 }
 </style>

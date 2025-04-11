@@ -10,12 +10,10 @@
     </div>
     <ul class="menu">
       <li v-for="(item, index) in menuItems" :key="index" class="menu-item">
-        <router-link :to="item.path" class="menu-link" :class="{ 'collapsed': isCollapsed }" v-slot="{ isActive }">
-          <MenuIcon3D
-            :icon="item.iconType"
-            :color="item.color"
-            :isActive="isActive"
-          />
+        <router-link :to="item.path" class="menu-link" :class="{ 'collapsed': isCollapsed }" v-slot="{ isExactActive }">
+          <span class="material-icons" :style="{ color: isExactActive ? item.color : '#666' }">
+            {{ item.iconType }}
+          </span>
           <span v-if="!isCollapsed">{{ item.title }}</span>
         </router-link>
       </li>
@@ -24,8 +22,6 @@
 </template>
 
 <script setup>
-import MenuIcon3D from './MenuIcon3D.vue';
-
 const props = defineProps({
   isCollapsed: {
     type: Boolean,
@@ -42,31 +38,31 @@ const menuItems = [
   },
   { 
     path: '/accounts', 
-    iconType: 'accounts', 
+    iconType: 'account_balance_wallet', 
     title: 'Tài Khoản',
     color: '#ff9500'
   },
   { 
     path: '/income', 
-    iconType: 'income', 
+    iconType: 'add_circle', 
     title: 'Ghi Thu',
     color: '#4cd964'
   },
   { 
     path: '/expense', 
-    iconType: 'expense', 
+    iconType: 'remove_circle', 
     title: 'Ghi Chi',
     color: '#ff3b30'
   },
   { 
     path: '/categories', 
-    iconType: 'categories', 
+    iconType: 'category', 
     title: 'Danh Mục',
     color: '#ff9500'
   },
   { 
     path: '/statistics', 
-    iconType: 'statistics', 
+    iconType: 'bar_chart', 
     title: 'Thống Kê',
     color: '#5ac8fa'
   },
@@ -78,7 +74,7 @@ const menuItems = [
   },
   { 
     path: '/user', 
-    iconType: 'user', 
+    iconType: 'person', 
     title: 'Thông Tin Người Dùng',
     color: '#af52de'
   }
@@ -142,7 +138,7 @@ const menuItems = [
           color: rgba(0, 0, 0, 0.9) !important;
         }
 
-        &.router-link-active {
+        &.router-link-exact-active {
           background-color: rgba(0, 0, 0, 0.08);
           color: rgba(0, 0, 0, 0.9) !important;
           font-weight: 500;

@@ -1,9 +1,5 @@
 <template>
   <div class="user-info-view">
-    <div class="view-header">
-      <h2>Thông Tin Người Dùng</h2>
-    </div>
-
     <div class="info-container">
       <div class="avatar-section">
         <UserAvatar :size="120" />

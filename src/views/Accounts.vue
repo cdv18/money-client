@@ -1,9 +1,6 @@
 <template>
   <div class="accounts-view">
     <div class="view-header">
-      <div class="left-section">
-        <h2>Tài Khoản</h2>
-      </div>
       <BaseButton 
         variant="primary" 
         size="small" 

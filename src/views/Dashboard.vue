@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard">
-    <h2>Dashboard</h2>
     <p>Chào mừng bạn đến với ứng dụng quản lý chi tiêu cá nhân!</p>
     
     <!-- Thêm các thẻ thống kê -->

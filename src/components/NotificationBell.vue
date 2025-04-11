@@ -130,13 +130,15 @@ onUnmounted(() => {
 .bell-button {
   background: none;
   border: none;
-  padding: 8px;
+  padding: 4px; /* Giảm padding */
   cursor: pointer;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 28px; /* Thêm width cố định */
+  height: 28px; /* Thêm height cố định */
 }
 
 .bell-button:hover {
@@ -145,15 +147,15 @@ onUnmounted(() => {
 
 .notification-badge {
   position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 18px;
-  height: 18px;
+  top: -2px; /* Điều chỉnh vị trí */
+  right: -2px;
+  min-width: 16px; /* Giảm kích thước */
+  height: 16px;
   background: #FF3B30;
   color: white;
-  font-size: 12px;
+  font-size: 11px; /* Giảm font size */
   font-weight: 600;
-  border-radius: 9px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;

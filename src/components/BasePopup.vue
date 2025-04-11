@@ -152,8 +152,14 @@ export default {
   border-top: none; /* Bỏ border */
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 8px; /* Giảm khoảng cách giữa các nút */
   background: var(--surface-light);
+}
+
+.popup-footer .base-button {
+  height: 36px; /* Đồng bộ chiều cao với các nút khác */
+  min-width: 80px; /* Giảm độ rộng tối thiểu */
+  padding: 0 16px; /* Thêm padding ngang */
 }
 
 /* Animations */

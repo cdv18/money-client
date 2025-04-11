@@ -85,18 +85,18 @@ export default {
 
 /* Sizes */
 .small {
-  height: 32px;
-  font-size: 14px;
+  height: 28px; /* Giảm từ 32px xuống 28px */
+  font-size: 0.8125rem; /* Giảm font size */
 }
 
 .medium {
-  height: 40px;
-  font-size: 15px;
+  height: 36px;
+  font-size: 0.875rem;
 }
 
 .large {
-  height: 48px;
-  font-size: 16px;
+  height: 44px;
+  font-size: 1rem;
 }
 
 /* Icons */

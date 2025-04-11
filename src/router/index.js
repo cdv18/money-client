@@ -21,16 +21,47 @@ const routes = [
   {
     path: '/',
     component: MainLayout,
-    meta: { requiresAuth: true },
     children: [
-      { path: '', component: () => import('../views/Dashboard.vue') },
-      { path: 'income', component: () => import('../views/Income.vue') },
-      { path: 'expense', component: () => import('../views/Expense.vue') },
-      { path: 'categories', component: () => import('../views/Categories.vue') },
-      { path: 'statistics', component: () => import('../views/Statistics.vue') },
-      { path: 'history', component: () => import('../views/History.vue') },
-      { path: 'user', component: () => import('../views/UserInfo.vue') },
-      { path: 'accounts', component: () => import('../views/Accounts.vue') }
+      { 
+        path: '', 
+        component: () => import('../views/Dashboard.vue'),
+        meta: { requiresAuth: true }
+      },
+      { 
+        path: 'income', 
+        component: () => import('../views/Income.vue'),
+        meta: { requiresAuth: true }
+      },
+      { 
+        path: 'expense', 
+        component: () => import('../views/Expense.vue'),
+        meta: { requiresAuth: true }
+      },
+      { 
+        path: 'categories', 
+        component: () => import('../views/Categories.vue'),
+        meta: { requiresAuth: true }
+      },
+      { 
+        path: 'statistics', 
+        component: () => import('../views/Statistics.vue'),
+        meta: { requiresAuth: true }
+      },
+      { 
+        path: 'history', 
+        component: () => import('../views/History.vue'),
+        meta: { requiresAuth: true }
+      },
+      { 
+        path: 'accounts', 
+        component: () => import('../views/Accounts.vue'),
+        meta: { requiresAuth: true }
+      },
+      { 
+        path: 'user', 
+        component: () => import('../views/UserInfo.vue'),
+        meta: { requiresAuth: true }
+      }
     ]
   }
 ];

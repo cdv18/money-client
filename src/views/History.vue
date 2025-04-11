@@ -1,9 +1,6 @@
 <template>
   <div class="history-view">
     <div class="view-header">
-      <div class="header-left">
-        <h2>Lịch Sử Giao Dịch</h2>
-      </div>
       <div class="header-right">
         <!-- Thay thế BaseDateRangePicker bằng DatePicker trực tiếp -->
         <div class="date-filter">

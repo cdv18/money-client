@@ -1,63 +1,108 @@
 <template>
-  <div class="ios-input-group">
-    <!-- Icon trước -->
+  <div class="ios-input-group" :class="{ 'is-invalid': invalid }">
     <span v-if="iconBefore" class="material-icons icon">{{ iconBefore }}</span>
     
-    <!-- Input -->
     <input
-      :placeholder="placeholder"
-      v-model="inputValue"
-      class="input"
-      @input="$emit('update:modelValue', inputValue)"
-      @focus="$emit('focus', $event)"
       ref="input"
+      :value="displayValue"
+      :type="inputType"
+      :placeholder="placeholder"
+      @input="handleInput"
+      @blur="handleBlur"
+      @focus="$emit('focus', $event)"
     />
     
-    <!-- Icon xóa -->
-    <span v-if="inputValue" class="material-icons icon clear-icon" @click="clearInput">close</span>
-    
-    <!-- Icon sau -->
+    <span v-if="showClearButton" class="material-icons icon clear-icon" @click="clearInput">close</span>
     <span v-if="iconAfter" class="material-icons icon icon-after">{{ iconAfter }}</span>
   </div>
 </template>
 
 <script>
+import { InputType, formatCurrency, parseCurrency } from '../enums/InputType';
+
 export default {
   props: {
     modelValue: {
-      type: String,
+      type: [String, Number],
       default: ''
+    },
+    type: {
+      type: String,
+      default: InputType.TEXT,
+      validator: (value) => Object.values(InputType).includes(value)
     },
     iconBefore: {
       type: String,
-      default: '' // Tên icon trước (nếu không truyền thì không hiển thị)
+      default: ''
     },
     iconAfter: {
       type: String,
-      default: '' // Tên icon sau (nếu không truyền thì không hiển thị)
+      default: ''
     },
     placeholder: {
       type: String,
-      default: 'Nhập nội dung...' // Placeholder mặc định
+      default: 'Nhập nội dung...'
+    },
+    invalid: {
+      type: Boolean,
+      default: false
     }
   },
+
   data() {
     return {
-      inputValue: this.modelValue // Giá trị input
+      localValue: this.modelValue
     };
   },
-  methods: {
-    clearInput() {
-      this.inputValue = ''; // Xóa nội dung input
-      this.$emit('update:modelValue', ''); // Cập nhật giá trị binding
+
+  computed: {
+    inputType() {
+      return this.type === InputType.CURRENCY ? 'text' : this.type;
     },
+
+    displayValue() {
+      if (this.type === InputType.CURRENCY) {
+        return formatCurrency(this.localValue);
+      }
+      return this.localValue;
+    },
+
+    showClearButton() {
+      return this.localValue && this.type !== InputType.PASSWORD;
+    }
+  },
+
+  methods: {
+    handleInput(event) {
+      let value = event.target.value;
+      
+      if (this.type === InputType.CURRENCY) {
+        this.localValue = parseCurrency(value);
+        this.$emit('update:modelValue', this.localValue);
+      } else {
+        this.localValue = value;
+        this.$emit('update:modelValue', value);
+      }
+    },
+
+    handleBlur(event) {
+      this.$emit('blur', event);
+    },
+
+    clearInput() {
+      this.localValue = '';
+      this.$emit('update:modelValue', '');
+      this.$refs.input.focus();
+    },
+
     focus() {
       this.$refs.input.focus();
     }
   },
+
   watch: {
     modelValue(newValue) {
-      this.inputValue = newValue; // Đồng bộ giá trị từ bên ngoài
+      this.localValue = newValue;
     }
   }
 };
@@ -67,10 +112,10 @@ export default {
 .ios-input-group {
   background: var(--bg-light);
   border-radius: var(--radius-sm);
-  padding: 2px 12px; /* Thay đổi padding để icon gần input hơn */
+  padding: 2px 12px;
   display: flex;
   align-items: center;
-  gap: 8px; /* Giảm khoảng cách giữa icon và input */
+  gap: 8px;
   border: 1px solid transparent;
   transition: all 0.2s ease;
 }
@@ -81,11 +126,15 @@ export default {
   background: white;
 }
 
+.ios-input-group.is-invalid {
+  border-color: #ff3b30;
+}
+
 input {
   border: none;
   background: transparent;
   padding: 4px;
-  height: 28px; /* Giảm chiều cao xuống */
+  height: 28px;
   width: 100%;
   font-size: 14px;
   line-height: 1;
@@ -95,10 +144,19 @@ input {
   }
 }
 
-/* Icon styles */
 .material-icons {
-  font-size: 18px; /* Giảm kích thước icon */
+  font-size: 18px;
   color: #666;
-  flex-shrink: 0; /* Ngăn icon bị co lại */
+  flex-shrink: 0;
+}
+
+.clear-icon {
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  
+  &:hover {
+    opacity: 1;
+  }
 }
 </style>

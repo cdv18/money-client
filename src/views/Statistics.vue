@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <h2>Thống Kê</h2>
-    <p>Xem thống kê chi tiêu và thu nhập của bạn tại đây.</p>
-    <div class="chart-wrapper">
-      <BarChart 
-        title="Thống kê doanh thu và chi phí" 
-        :chartData="chartData"
-        :chartOptions="chartOptions"
-      />
+  <div class="statistics-view">
+    <div class="filters-section">
+      <div class="chart-wrapper">
+        <BarChart 
+          title="Thống kê doanh thu và chi phí" 
+          :chartData="chartData"
+          :chartOptions="chartOptions"
+        />
+      </div>
     </div>
   </div>
 </template>

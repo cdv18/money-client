@@ -2,17 +2,6 @@
   <div class="categories-view">
     <div class="view-header">
       <div class="left-section">
-        <div class="header-title">
-          <h2>Danh Mục</h2>
-          <BaseButton 
-            variant="primary" 
-            size="small" 
-            iconBefore="add"
-            @click="openAddDialog"
-          >
-            Thêm danh mục
-          </BaseButton>
-        </div>
         <div class="tab-header">
           <button 
             v-for="tab in tabs" 
@@ -24,6 +13,15 @@
           </button>
         </div>
       </div>
+      <BaseButton 
+        variant="primary" 
+        size="small" 
+        iconBefore="add"
+        @click="openAddDialog"
+        class="add-button"
+      >
+        Thêm danh mục
+      </BaseButton>
     </div>
 
     <div class="content-container">
@@ -203,37 +201,24 @@ const editCategory = (category) => {
 
 <style scoped>
 .view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 0;
   margin-bottom: 1rem;
 }
 
 .left-section {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-h2 {
-  padding: 0;
-  margin: 0;
-  display: inline-flex;
   align-items: center;
 }
 
 .tab-header {
   display: flex;
   gap: 0.5rem;
+  margin: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 0.5rem;
-  margin-left: 0; /* Reset margin */
-}
-
-/* Move the h2 and button to the same line */
-.header-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
 }
 
 .tab-button {
@@ -253,7 +238,6 @@ h2 {
   font-weight: 600;
 }
 
-/* Thêm gạch chân cho tab active */
 .tab-button.active::after {
   content: '';
   position: absolute;
@@ -265,10 +249,20 @@ h2 {
   border-radius: 2px;
 }
 
+.add-button {
+  height: 32px;
+  font-size: 0.875rem;
+  padding: 0 12px;
+  min-width: 100px;
+  margin-left: auto; /* Đưa nút sang bên phải */
+}
+
+/* Content styles */
 .content-container {
   background: white;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+  margin-top: 0; /* Bỏ margin-top vì đã có padding từ content-wrapper */
 }
 
 .categories-list {
@@ -293,22 +287,32 @@ h2 {
 
 .category-actions {
   display: flex;
-  gap: 8px;
+  gap: 4px;
 }
 
 .action-button {
   padding: 4px;
+  width: 28px;
+  height: 28px;
   border: none;
   background: none;
   cursor: pointer;
   border-radius: var(--radius-sm);
   color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .action-button:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
+.action-button .material-icons {
+  font-size: 16px;
+}
+
+/* Form styles */
 .form-group {
   margin-bottom: 16px;
 }
@@ -317,60 +321,6 @@ h2 {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-}
-
-.color-picker {
-  width: 100%;
-  height: 40px;
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-}
-
-.color-picker::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-.color-picker::-webkit-color-swatch {
-  border: none;
-  border-radius: var(--radius-sm);
-}
-
-.icon-color-group {
-  display: flex;
-  gap: 1rem;
-}
-
-.icon-preview, .color-preview {
-  flex: 1;
-}
-
-.color-input-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.color-picker {
-  width: 100px;
-  height: 36px;
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-}
-
-.preview-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.preview-icon .material-icons {
-  font-size: 20px;
 }
 
 .color-preview-group {
@@ -384,6 +334,23 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.color-picker {
+  width: 100px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-picker::-webkit-color-swatch {
+  border: none;
+  border-radius: var(--radius-sm);
 }
 
 .preview-icon {
@@ -402,9 +369,5 @@ h2 {
 .preview-icon .placeholder {
   color: #666;
   font-size: 14px;
-}
-
-h2 {
-  padding: 0; /* Remove padding */
 }
 </style>
