@@ -55,7 +55,12 @@
 
       <div class="form-group">
         <label>Số dư ban đầu</label>
-        <BaseInput v-model="editingAccount.balance" type="number" placeholder="0" />
+        <BaseInput 
+          v-model="editingAccount.balance" 
+          :type="InputType.CURRENCY"
+          placeholder="Nhập số dư ban đầu" 
+          iconBefore="payments"
+        />
       </div>
 
       <div class="form-group">
@@ -89,6 +94,10 @@ import BasePopup from '../components/BasePopup.vue';
 import BaseCombobox from '../components/BaseCombobox.vue';
 import BaseConfirm from '../components/BaseConfirm.vue';
 import { useConfirm } from '../composables/useConfirm';
+import { useToast } from '../composables/useToast';
+import { InputType, formatCurrency } from '../enums/InputType';
+
+const toast = useToast();
 
 // State
 const accounts = ref([
@@ -137,13 +146,6 @@ const accountTypes = [
 ];
 
 // Methods
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('vi-VN', { 
-    style: 'currency', 
-    currency: 'VND' 
-  }).format(amount);
-};
-
 const openAddDialog = () => {
   isEditing.value = false;
   editingAccount.value = {
