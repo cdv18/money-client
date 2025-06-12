@@ -5,8 +5,9 @@
       isCollapsed ? 'w-16' : 'w-64'
     ]"
   >
-    <div class="logo" :class="{ 'p-4': !isCollapsed, 'p-2': isCollapsed }">
-      <span v-if="!isCollapsed" class="ml-2 text-lg font-semibold">Money</span>
+    <div class="logo-section">
+      <Logo3D />
+      <span v-if="!isCollapsed" class="app-name">Money App</span>
     </div>
     <ul class="menu">
       <li v-for="(item, index) in menuItems" :key="index" class="menu-item">
@@ -22,6 +23,8 @@
 </template>
 
 <script setup>
+import Logo3D from './Logo3D.vue';
+
 const props = defineProps({
   isCollapsed: {
     type: Boolean,
@@ -88,14 +91,25 @@ const menuItems = [
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   color: #1c1c1e;
 
-  .logo {
-    padding: 1rem;
+  .logo-section {
+    height: 64px; /* Tăng từ 48px lên 64px để chứa logo lớn hơn */
+    padding: 0 16px;
     display: flex;
     align-items: center;
+    gap: 16px;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
 
-    .text-lg {
-      font-weight: bold;
-    }
+  .app-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #00E5FF, #40C4FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
   }
 
   .menu {
@@ -145,6 +159,14 @@ const menuItems = [
         }
       }
     }
+  }
+
+  &.collapsed {
+    width: 64px;
+  }
+
+  &.collapsed .app-name {
+    display: none;
   }
 }
 </style>
